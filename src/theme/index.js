@@ -133,6 +133,7 @@ export const theme = createTheme({
   },
   palette: {
     neutral: {
+      50:'#ffffff',
       100: '#F3F4F6',
       200: '#E5E7EB',
       300: '#D1D5DB',
@@ -156,16 +157,17 @@ export const theme = createTheme({
       paper: '#FFFFFF'
     },
     divider: '#E6E8F0',
-    primary: {
-      main: '#5048E5',
-      light: '#828DF8',
-      dark: '#3832A0',
+    accent:{default:'#06967C'},
+    secondary: {
+      main: '#673ab7',
+      light: '#7c4dff',
+      dark: '#6200ea',
       contrastText: '#FFFFFF'
     },
-    secondary: {
-      main: '#10B981',
-      light: '#3FC79A',
-      dark: '#0B815A',
+    info: {
+      main: '#3f51b5',
+      light: '#303f9f',
+      dark: '#1a237e',
       contrastText: '#FFFFFF'
     },
     success: {
@@ -174,7 +176,7 @@ export const theme = createTheme({
       dark: '#0E8074',
       contrastText: '#FFFFFF'
     },
-    info: {
+    primary: {
       main: '#2196F3',
       light: '#64B6F7',
       dark: '#0B79D0',
