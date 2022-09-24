@@ -8,7 +8,7 @@ import { Box, Container, Grid } from "@mui/material";
 // import { TotalCustomers } from '../components/dashboard/total-customers';
 // import { TotalProfit } from '../components/dashboard/total-profit';
 // import { TrafficByDevice } from '../components/dashboard/traffic-by-device';
-import { DashboardLayout } from "../components/dashboard-layout";
+import { Layout } from "../components/layout";
 import Post from "../views/post/post";
 const Page = () => (
   <>
@@ -40,6 +40,6 @@ const Page = () => (
   </>
 );
 
-Page.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
+Page.getLayout = (page) => <Layout>{page}</Layout>;
 
 export default Page;

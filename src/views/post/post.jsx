@@ -1,5 +1,5 @@
 import * as React from "react";
-import DotMenu from "../../components/common/menu/menu";
+import DotMenu from "./menu/menu";
 
 // MUI Components
 import { styled } from "@mui/material/styles";

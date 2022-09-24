@@ -64,7 +64,7 @@ const items = [
   // },
 ];
 
-export const DashboardSidebar = (props) => {
+export const Sidebar = (props) => {
   const { open, onClose } = props;
   const router = useRouter();
   const lgUp = useMediaQuery((theme) => theme.breakpoints.up("lg"), {
@@ -158,7 +158,7 @@ export const DashboardSidebar = (props) => {
   );
 };
 
-DashboardSidebar.propTypes = {
+Sidebar.propTypes = {
   onClose: PropTypes.func,
   open: PropTypes.bool,
 };

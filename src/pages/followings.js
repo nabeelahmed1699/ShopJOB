@@ -2,7 +2,7 @@ import Head from "next/head";
 import { Box, Container } from "@mui/material";
 import { CustomerListResults } from "../components/customer/customer-list-results";
 import { CustomerListToolbar } from "../components/customer/customer-list-toolbar";
-import { DashboardLayout } from "../components/dashboard-layout";
+import { Layout } from "../components/layout";
 import { customers } from "../__mocks__/customers";
 
 const Page = () => (
@@ -27,6 +27,6 @@ const Page = () => (
   </>
 );
 
-Page.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
+Page.getLayout = (page) => <Layout>{page}</Layout>;
 
 export default Page;

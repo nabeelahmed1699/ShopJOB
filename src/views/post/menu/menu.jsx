@@ -5,23 +5,6 @@ import MenuItem from "@mui/material/MenuItem";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { Box, Stack } from "@mui/material";
 
-// const options = [
-//   "None",
-//   "Atria",
-//   "Callisto",
-//   "Dione",
-//   "Ganymede",
-//   "Hangouts Call",
-//   "Luna",
-//   "Oberon",
-//   "Phobos",
-//   "Pyxis",
-//   "Sedna",
-//   "Titania",
-//   "Triton",
-//   "Umbriel",
-// ];
-
 const ITEM_HEIGHT = 48;
 
 export default function LongMenu({ options }) {
