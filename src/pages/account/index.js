@@ -1,8 +1,8 @@
 import Head from "next/head";
 import { Box, Container, Grid, Typography } from "@mui/material";
-import { AccountProfile } from "../components/account/account-profile";
-import { AccountProfileDetails } from "../components/account/account-profile-details";
-import { Layout } from "../components/layout";
+import { AccountProfile } from "../../components/account/account-profile";
+import { AccountProfileDetails } from "../../components/account/account-profile-details";
+import { Layout } from "../../components/layout";
 
 const Page = () => (
   <>

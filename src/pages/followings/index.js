@@ -1,14 +1,14 @@
 import Head from "next/head";
 import { Box, Container } from "@mui/material";
-import { CustomerListResults } from "../components/customer/customer-list-results";
-import { CustomerListToolbar } from "../components/customer/customer-list-toolbar";
-import { Layout } from "../components/layout";
-import { customers } from "../__mocks__/customers";
+import { CustomerListResults } from "../../components/customer/customer-list-results";
+import { CustomerListToolbar } from "../../components/customer/customer-list-toolbar";
+import { Layout } from "../../components/layout";
+import { customers } from "../../__mocks__/customers";
 
 const Page = () => (
   <>
     <Head>
-      <title>Followings | ShopJOB</title>
+      <title>ShopJOB | Followings</title>
     </Head>
     <Box
       component="main"

@@ -23,9 +23,9 @@ import { XCircle as XCircleIcon } from "../icons/x-circle";
 
 const items = [
   {
-    href: "/",
+    href: "/jobs",
     icon: <WorkIcon fontSize="small" />,
-    title: "JOBS",
+    title: "Find Jobs",
   },
   {
     href: "/followings",
@@ -98,8 +98,8 @@ export const Sidebar = (props) => {
         <div>
           <Box sx={{ textAlign: "center", pt: 2 }}>
             <NextLink href="/" passHref>
-              <a style={{ color: "#06967C", textDecoration: "none" }}>
-                <Logo color="accent.default" />
+              <a style={{ color: "#C46B39", textDecoration: "none" }}>
+                <Logo color="primary.main" />
               </a>
             </NextLink>
           </Box>
@@ -127,7 +127,7 @@ export const Sidebar = (props) => {
         PaperProps={{
           sx: {
             backgroundColor: "background.paper",
-            color: "#FFFFFF",
+            color: "neutral.100",
             width: 280,
           },
         }}
@@ -146,7 +146,7 @@ export const Sidebar = (props) => {
       PaperProps={{
         sx: {
           backgroundColor: "background.paper",
-          color: "#FFFFFF",
+          color: "neutral.100",
           width: 280,
         },
       }}

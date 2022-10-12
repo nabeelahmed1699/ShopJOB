@@ -23,7 +23,7 @@ const App = (props) => {
   return (
     <CacheProvider value={emotionCache}>
       <Head>
-        <title>ShopJOB | Get your Job</title>
+        <title>ShopJOB | Get Hired</title>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
       <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -36,7 +36,7 @@ const App = (props) => {
                   <Fragment />
                 ) : (
                   <>
-                    <NextNProgress color="#06967C" height={3} />
+                    <NextNProgress color="#C46B39" height={3} />
                     {getLayout(<Component {...pageProps} />)}
                   </>
                 )
