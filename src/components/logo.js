@@ -1,29 +1,44 @@
 import PropTypes from "prop-types";
 import { styled } from "@mui/material/styles";
 import logo from "../../public/static/ShopJOB.svg";
-import { Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
+import Image from "next/image";
+import LogoImage from "../images/shopJOB.png";
+import LogoImageInvert from "../images/shopJOB invert.png";
 export const Logo = styled((props) => {
-  const { variant, color, size, ...other } = props;
+  const { invert} = props;
+  console.log("IMAGE", LogoImage);
+  // if (size === "medium") {
+  //   return (
+  //     <Typography variant="h5" component="span" sx={{ color: color, zIndex: 10 }}>
+  //       ShopJOB
+  //     </Typography>
+  //   );
+  // }
+  // if (size === "small") {
+  //   return (
+  //     <Typography variant="h6" component="span" sx={{ color: color, zIndex: 10 }}>
+  //       ShopJOB
+  //     </Typography>
+  //   );
+  // }
+  // return (
+  //   <Typography variant="h3" component="span" sx={{ color: color, zIndex: 10 }}>
+  //     ShopJOB
+  //   </Typography>
+  // );
+  if(invert){
 
-  // const color = variant === 'light' ? '#C1C4D6' : '#5048E5';
-  if (size === "medium") {
     return (
-      <Typography variant="h5" component="span" sx={{ color: color, zIndex: 10 }}>
-        ShopJOB
-      </Typography>
-    );
-  }
-  if (size === "small") {
-    return (
-      <Typography variant="h6" component="span" sx={{ color: color, zIndex: 10 }}>
-        ShopJOB
-      </Typography>
+      <Box sx={{ width: 240, heigh: 240 }}>
+        <Image src={LogoImageInvert} />
+      </Box>
     );
   }
   return (
-    <Typography variant="h3" component="span" sx={{ color: color, zIndex: 10 }}>
-      ShopJOB
-    </Typography>
+    <Box sx={{ width: 240, heigh: 240 }}>
+      <Image src={LogoImage} />
+    </Box>
   );
 })``;
 

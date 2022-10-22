@@ -28,9 +28,9 @@ const items = [
     title: "Find Jobs",
   },
   {
-    href: "/followings",
+    href: "/my_posts",
     icon: <UsersIcon fontSize="small" />,
-    title: "Followings",
+    title: "My Posts",
   },
   {
     href: "/messaging",
@@ -106,7 +106,7 @@ export const Sidebar = (props) => {
         </div>
         <Divider
           sx={{
-            borderColor: "#e3e3e3",
+            borderColor: "action.focus",
             my: 3,
           }}
         />

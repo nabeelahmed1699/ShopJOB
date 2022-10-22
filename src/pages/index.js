@@ -66,7 +66,7 @@ const Page = () => {
           <Grid container sx={{ minHeight: "100vh" }}>
             <Grid item xs={6} sx={{ backgroundColor: "primary.main", minHeight: "100vh", p: 4 }}>
               <Box>
-                <Logo color="neutral.100" />
+                <Logo invert />
               </Box>
               <Box
                 sx={{
@@ -118,6 +118,9 @@ const Page = () => {
               >
                 <Button variant="contained" sx={{ zIndex: 10 }}>
                   Post Job
+                </Button>
+                <Button variant="text" sx={{ zIndex: 10 }}>
+                  Log in / sign up
                 </Button>
               </Box>
             </Grid>
