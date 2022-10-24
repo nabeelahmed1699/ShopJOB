@@ -3,12 +3,15 @@ import PropTypes from "prop-types";
 import styled from "@emotion/styled";
 import { AppBar, Avatar, Badge, Box, IconButton, Toolbar, Tooltip, Button } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import SearchIcon from "@mui/icons-material/Search";
 import { Bell as BellIcon } from "../icons/bell";
 import { UserCircle as UserCircleIcon } from "../icons/user-circle";
 import { Users as UsersIcon } from "../icons/users";
 import { AccountPopover } from "./account-popover";
+
+// custom imports
 import menu from "./common/menu/index.jsx";
+import JobPostModal from "../views/layout/postModal.jsx";
+
 const NavbarRoot = styled(AppBar)(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
   boxShadow: theme.shadows[3],
@@ -18,6 +21,10 @@ export const Navbar = (props) => {
   const { onSidebarOpen, ...other } = props;
   const settingsRef = useRef(null);
   const [openAccountPopover, setOpenAccountPopover] = useState(false);
+
+  const [open, setOpen] = useState(false);
+  const handleModalOpen = () => setOpen(true);
+  const handleModalClose = () => setOpen(false);
 
   return (
     <>
@@ -51,18 +58,10 @@ export const Navbar = (props) => {
           >
             <MenuIcon fontSize="small" />
           </IconButton>
-          {/* <Tooltip title="Search">
-            <IconButton sx={{ ml: 1 }}>
-              <SearchIcon fontSize="small" />
-            </IconButton>
-          </Tooltip> */}
           <Box sx={{ flexGrow: 1 }} />
-          {/* <Tooltip title="Contacts">
-            <IconButton sx={{ ml: 1 }}>
-              <UsersIcon fontSize="small" />
-            </IconButton>
-          </Tooltip> */}
-          <Button variant="contained">Post Job</Button>
+          <Button variant="contained" onClick={handleModalOpen}>
+            Post Job
+          </Button>
           <Tooltip title="Notifications">
             <IconButton sx={{ ml: 1 }}>
               <Badge badgeContent={4} color="primary" variant="dot">
@@ -90,6 +89,7 @@ export const Navbar = (props) => {
         open={openAccountPopover}
         onClose={() => setOpenAccountPopover(false)}
       />
+      <JobPostModal open={open} handleClose={handleModalClose} />
     </>
   );
 };

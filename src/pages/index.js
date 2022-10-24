@@ -116,7 +116,7 @@ const Page = () => {
                   pr: 2,
                 }}
               >
-                <Button variant="contained" sx={{ zIndex: 10 }}>
+                <Button variant="contained" sx={{ zIndex: 10, whiteSpace: "nowrap" }}>
                   Post Job
                 </Button>
                 <Button variant="text" sx={{ zIndex: 10 }}>
@@ -127,7 +127,7 @@ const Page = () => {
           </Grid>
         ) : (
           <Grid container>
-            <Grid item xs={12} sx={{ ...rightSideStyles(true), p: 4 }}>
+            <Grid item xs={12} sx={{ ...rightSideStyles(true), p: 1 }}>
               <Box
                 sx={{
                   width: "100%",
@@ -138,9 +138,23 @@ const Page = () => {
                 }}
               >
                 <Logo color="neutral.100" size="small" />
-                <Button variant="contained" sx={{ zIndex: 10 }}>
-                  Post Job
-                </Button>
+                <Box
+                  sx={{
+                    width: "100%",
+                    display: "flex",
+                    justifyContent: "flex-end",
+                    alignItems: "center",
+                    py: 2,
+                    pr: 2,
+                  }}
+                >
+                  <Button variant="contained" sx={{ zIndex: 10, whiteSpace: "nowrap" }}>
+                    Post Job
+                  </Button>
+                  <Button variant="text" sx={{ zIndex: 10 }}>
+                    Log in / sign up
+                  </Button>
+                </Box>
               </Box>
               <Box
                 sx={{

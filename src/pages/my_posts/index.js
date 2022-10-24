@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { Box, Container, Grid } from "@mui/material";
 import { Layout } from "../../components/layout";
-import Post from "../../components/post/Post";
+import Post from "../../views/my_posts/post";
 const Page = () => (
   <>
     <Head>
