@@ -23,7 +23,7 @@ const style = {
   bgcolor: "background.paper",
   width: "85%",
   maxWidth: "1020px",
-  height: "90vh",
+  // height: "90vh",
   overflowY: "auto",
   boxShadow: 24,
   borderRadius: 1,
@@ -53,7 +53,7 @@ export default function JobPostModal({ open, handleClose }) {
           <Typography id="transition-modal-title" variant="h5" component="h2">
             Create a Job Post
           </Typography>
-          <Grid container spacing={2}>
+          <Grid container spacing={4}>
             <Grid item xs={12}>
               <TextField id="outlined-basic" label="Shop Name: " variant="outlined" fullWidth />
             </Grid>
@@ -79,7 +79,7 @@ export default function JobPostModal({ open, handleClose }) {
             <Grid item xs={12} md={6}>
               <TextField id="outlined-basic" label="Timings: " variant="outlined" fullWidth />
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12}>
               <TextField id="outlined-basic" label="Location: " variant="outlined" fullWidth />
             </Grid>
             <Grid item xs={12} md={6}>
@@ -124,6 +124,7 @@ export default function JobPostModal({ open, handleClose }) {
                 <Button
                   variant="outlined"
                   sx={{ color: "text.disabled", borderColor: "text.disabled" }}
+                  onClick={handleClose}
                 >
                   cancel
                 </Button>
