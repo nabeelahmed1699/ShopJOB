@@ -1,10 +1,28 @@
-import { Box, Grid, InputLabel, TextField, Typography } from "@mui/material";
+import { Box, Button, Grid, InputLabel, Stack, TextField, Typography } from "@mui/material";
 import React from "react";
 
 const EditForm = () => {
   return (
     <Box>
       <Grid container spacing={6}>
+        <Grid item xs={12}>
+          <Stack
+            direction={{ sm: "row" }}
+            spacing={2}
+            sx={{ justifyContent: "flex-end", alignItems: "center" }}
+          >
+            <Typography
+              component="span"
+              sx={{ fontSize: "1rem", color: "ActiveBorder", order: { xs: 2, sm: 1 } }}
+            >
+              Update profile picture
+            </Typography>
+            <Button variant="contained" component="label" sx={{ order: 1 }}>
+              Upload File
+              <input type="file" hidden />
+            </Button>
+          </Stack>
+        </Grid>
         <Grid item xs={12}>
           <Grid container>
             <Grid item xs={12} md={4} sx={{ alignSelf: "center" }}>
@@ -76,6 +94,12 @@ const EditForm = () => {
               <TextField fullWidth multiline id="bio" rows={6} />
             </Grid>
           </Grid>
+        </Grid>
+        <Grid item xs={12}>
+          <Stack direction="row" spacing={2} sx={{ justifyContent: "flex-end" }}>
+            <Button variant="outlined">Cancel</Button>
+            <Button variant="contained">Save</Button>
+          </Stack>
         </Grid>
       </Grid>
     </Box>
