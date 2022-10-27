@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { Box, Typography, Grid, Button, useMediaQuery } from "@mui/material";
@@ -12,6 +13,7 @@ import { Box, Typography, Grid, Button, useMediaQuery } from "@mui/material";
 import { Layout } from "../components/layout";
 import { Logo } from "../components/logo";
 import banner from "../images/bannerImg.jpg";
+import LoginFormModal from "../views/loginForm/LoginFormModel";
 
 const rightSideStyles = (isSmallScreen) => {
   return {
@@ -31,19 +33,21 @@ const rightSideStyles = (isSmallScreen) => {
   };
 };
 
-const navBoxStyles = {
-  width: "100%",
-  display: "flex",
-  justifyContent: "flex-end",
-  alignItems: "center",
-};
-console.log("Banner", banner);
 const Page = () => {
   const router = useRouter();
   const lgUp = useMediaQuery((theme) => theme.breakpoints.up("lg"), {
     defaultMatches: true,
     noSsr: false,
   });
+
+  const [isLoginFormOpen, setIsLoginFormOpen] = useState(false);
+
+  function openLogin() {
+    setIsLoginFormOpen(true);
+  }
+  function closeLogin() {
+    setIsLoginFormOpen(false);
+  }
 
   function handleExplore() {
     router.push("/jobs");
@@ -116,10 +120,10 @@ const Page = () => {
                   pr: 2,
                 }}
               >
-                <Button variant="contained" sx={{ zIndex: 10, whiteSpace: "nowrap" }}>
+                {/* <Button variant="contained" sx={{ zIndex: 10, whiteSpace: "nowrap" }}>
                   Post Job
-                </Button>
-                <Button variant="text" sx={{ zIndex: 10 }}>
+                </Button> */}
+                <Button variant="text" sx={{ zIndex: 10 }} onClick={openLogin}>
                   Log in / sign up
                 </Button>
               </Box>
@@ -148,10 +152,10 @@ const Page = () => {
                     pr: 2,
                   }}
                 >
-                  <Button variant="contained" sx={{ zIndex: 10, whiteSpace: "nowrap" }}>
+                  {/* <Button variant="contained" sx={{ zIndex: 10, whiteSpace: "nowrap" }}>
                     Post Job
-                  </Button>
-                  <Button variant="text" sx={{ zIndex: 10 }}>
+                  </Button> */}
+                  <Button variant="text" sx={{ zIndex: 10 }} onClick={openLogin}>
                     Log in / sign up
                   </Button>
                 </Box>
@@ -207,6 +211,7 @@ const Page = () => {
           </Grid>
         )}
       </Box>
+      <LoginFormModal open={isLoginFormOpen} handleClose={closeLogin} />
     </>
   );
 };

@@ -13,7 +13,7 @@ function Page() {
   return (
     <>
       <Head>
-        <title>ShopJOB | Find New Job</title>
+        <title>ShopJOB | Find Jobs</title>
       </Head>
       <Box
         component="main"

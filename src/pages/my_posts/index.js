@@ -5,7 +5,7 @@ import Post from "../../views/my_posts/post";
 const Page = () => (
   <>
     <Head>
-      <title>ShopJOB | My posts</title>
+      <title>ShopJOB | My Posts</title>
     </Head>
     <Box
       component="main"

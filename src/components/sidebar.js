@@ -11,15 +11,10 @@ import { Box, Button, Divider, Drawer, Typography, useMediaQuery } from "@mui/ma
 // icons
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import WorkIcon from "@mui/icons-material/Work";
-import ChatIcon from "@mui/icons-material/Chat";
+import PagesIcon from "@mui/icons-material/Pages";
 import { Cog as CogIcon } from "../icons/cog";
-import { Lock as LockIcon } from "../icons/lock";
-import { Selector as SelectorIcon } from "../icons/selector";
-import { ShoppingBag as ShoppingBagIcon } from "../icons/shopping-bag";
-import { User as UserIcon } from "../icons/user";
-import { UserAdd as UserAddIcon } from "../icons/user-add";
-import { Users as UsersIcon } from "../icons/users";
-import { XCircle as XCircleIcon } from "../icons/x-circle";
+import PersonIcon from "@mui/icons-material/Person";
+import PermIdentityIcon from "@mui/icons-material/PermIdentity";
 
 const items = [
   {
@@ -29,17 +24,17 @@ const items = [
   },
   {
     href: "/my_posts",
-    icon: <UsersIcon fontSize="small" />,
+    icon: <PagesIcon fontSize="small" />,
     title: "My Posts",
   },
   {
-    href: "/messaging",
-    icon: <ChatIcon fontSize="small" />,
-    title: "Messages",
+    href: "/profile",
+    icon: <PersonIcon fontSize="small" />,
+    title: "Profile",
   },
   {
     href: "/account",
-    icon: <UserIcon fontSize="small" />,
+    icon: <PermIdentityIcon fontSize="small" />,
     title: "Account",
   },
   {

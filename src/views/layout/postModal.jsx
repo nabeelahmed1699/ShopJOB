@@ -23,7 +23,6 @@ const style = {
   bgcolor: "background.paper",
   width: "85%",
   maxWidth: "1020px",
-  // height: "90vh",
   overflowY: "auto",
   boxShadow: 24,
   borderRadius: 1,
