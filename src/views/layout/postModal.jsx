@@ -1,9 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+
+// mui imports
 import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
-import Grow from "@mui/material/Grow";
 import Typography from "@mui/material/Typography";
+
+// Icons
+import ImageIcon from "@mui/icons-material/Image";
+
 import {
   TextField,
   Select,
@@ -14,7 +20,7 @@ import {
   Button,
   Stack,
 } from "@mui/material";
-
+import { FileUploader } from "react-drag-drop-files";
 const style = {
   position: "absolute",
   top: "50%",
@@ -34,6 +40,16 @@ export default function JobPostModal({ open, handleClose }) {
   const handleChange = (event) => {
     setJobType(event.target.value);
   };
+
+  // async function getPost() {
+  //   const response = await axios.get("https://bkbutt.herokuapp.com/postjob");
+  //   console.log(response);
+  // }
+
+  // useEffect(() => {
+  //   getPost();
+  // }, []);
+
   return (
     <>
       <Modal
@@ -47,7 +63,6 @@ export default function JobPostModal({ open, handleClose }) {
           timeout: 500,
         }}
       >
-        {/* <Grow direction="bottom" in={open} mountOnEnter unmountOnExit> */}
         <Box sx={style}>
           <Typography id="transition-modal-title" variant="h5" component="h2">
             Create a Job Post
@@ -109,6 +124,9 @@ export default function JobPostModal({ open, handleClose }) {
               />
             </Grid>
             <Grid item xs={12}>
+              <FileUploader name="file" types={["JPG", "PNG"]} />
+            </Grid>
+            <Grid item xs={12}>
               <TextField
                 id="outlined-basic"
                 label="Description: "
@@ -132,7 +150,6 @@ export default function JobPostModal({ open, handleClose }) {
             </Grid>
           </Grid>
         </Box>
-        {/* </Grow> */}
       </Modal>
     </>
   );

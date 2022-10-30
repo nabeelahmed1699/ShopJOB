@@ -16,7 +16,7 @@ const style = {
   bgcolor: "rgba(255,255,255,0.8)",
   backdropFilter: "blur(4px)",
   width: "85%",
-  maxWidth: "1020px",
+  maxWidth: "450px",
   overflowY: "auto",
   boxShadow: 24,
   borderRadius: 1,
@@ -53,7 +53,7 @@ export default function LoginFormModal({ open, handleClose }) {
                 <TextField id="outlined-basic" label="Email: " variant="standard" fullWidth />
               </Grid>
 
-              <Grid item xs={12} md={6} sx={{ display: "flex", flexDirection: "column" }}>
+              <Grid item xs={12} sx={{ display: "flex", flexDirection: "column" }}>
                 <TextField
                   id="outlined-basic"
                   label="Password: "
