@@ -118,7 +118,6 @@ export default function PostCard({
       />
 
       <CardActions disableSpacing>
-        <Button sx={{ ml: "2", color: "accent.default" }}>view details</Button>
         <Button
           sx={{
             ml: "auto",
