@@ -2,14 +2,6 @@ import React, { useState } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { Box, Typography, Grid, Button, useMediaQuery } from "@mui/material";
-// import { Budget } from '../components/dashboard/budget';
-// import { LatestOrders } from '../components/dashboard/latest-orders';
-// import { LatestProducts } from '../components/dashboard/latest-products';
-// import { Sales } from '../components/dashboard/sales';
-// import { TasksProgress } from '../components/dashboard/tasks-progress';
-// import { TotalCustomers } from '../components/dashboard/total-customers';
-// import { TotalProfit } from '../components/dashboard/total-profit';
-// import { TrafficByDevice } from '../components/dashboard/traffic-by-device';
 import { Layout } from "../components/layout";
 import { Logo } from "../components/logo";
 import banner from "../images/bannerImg.jpg";
@@ -34,6 +26,7 @@ const rightSideStyles = (isSmallScreen) => {
 };
 
 const Page = () => {
+  const JWTtoken = window.localStorage.getItem("JWTtoken");
   const router = useRouter();
   const lgUp = useMediaQuery((theme) => theme.breakpoints.up("lg"), {
     defaultMatches: true,
@@ -50,7 +43,11 @@ const Page = () => {
   }
 
   function handleExplore() {
-    router.push("/jobs");
+    if (JWTtoken) {
+      router.push("/jobs");
+      return;
+    }
+    openLogin();
   }
   return (
     <>

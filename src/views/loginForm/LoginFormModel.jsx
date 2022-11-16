@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+// mui imports
 import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
@@ -7,6 +9,7 @@ import Typography from "@mui/material/Typography";
 import { TextField, Grid, Button, Stack } from "@mui/material";
 import Link from "@mui/material/Link";
 import NextLink from "next/link";
+import { FormatColorResetSharp } from "@mui/icons-material";
 
 const style = {
   position: "absolute",
@@ -24,10 +27,49 @@ const style = {
 };
 
 export default function LoginFormModal({ open, handleClose }) {
-  const [jobType, setJobType] = useState("");
-  const handleChange = (event) => {
-    setJobType(event.target.value);
-  };
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isProcessing, setIsProcessing] = useState(false);
+  const router = useRouter();
+
+  async function loginUser() {
+    try {
+      const response = await fetch("http://localhost:5000/login", {
+        method: "POST",
+        mode: "cors",
+        cache: "no-cache",
+        credentials: "same-origin",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        redirect: "follow",
+        referrerPolicy: "no-referrer",
+        body: JSON.stringify({
+          // email: "nabeel@gmail.com",
+          email: email,
+          // password: "tanzeela",
+          password: password,
+        }),
+      });
+
+      const data = await response.json();
+      setIsProcessing(false);
+      window.localStorage.setItem("JWTtoken", data.token);
+      router.push("/jobs");
+    } catch (error) {}
+  }
+
+  useEffect(() => {
+    const JWTtoken = window.localStorage.getItem("JWTtoken");
+    if (JWTtoken) {
+      router.push("/jobs");
+    }
+  }, []);
+
+  function handleLogin() {
+    setIsProcessing(true);
+    loginUser();
+  }
   return (
     <>
       <Modal
@@ -50,15 +92,26 @@ export default function LoginFormModal({ open, handleClose }) {
           <Box sx={{ my: 6 }}>
             <Grid container spacing={4}>
               <Grid item xs={12}>
-                <TextField id="outlined-basic" label="Email: " variant="standard" fullWidth />
+                <TextField
+                  label="Email: "
+                  variant="standard"
+                  value={email}
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                  }}
+                  fullWidth
+                />
               </Grid>
 
               <Grid item xs={12} sx={{ display: "flex", flexDirection: "column" }}>
                 <TextField
-                  id="outlined-basic"
                   label="Password: "
                   type="password"
                   variant="standard"
+                  value={password}
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                  }}
                   fullWidth
                 />
                 <Link
@@ -71,7 +124,7 @@ export default function LoginFormModal({ open, handleClose }) {
               </Grid>
 
               <Grid item xs={12}>
-                <Button variant="contained" fullWidth>
+                <Button variant="contained" fullWidth onClick={handleLogin} disabled={isProcessing}>
                   Log In
                 </Button>
                 <Stack sx={{ alignItems: "center" }}>
