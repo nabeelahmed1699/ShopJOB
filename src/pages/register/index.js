@@ -1,8 +1,10 @@
 import Head from "next/head";
 import NextLink from "next/link";
-import Router from "next/router";
-import { useFormik } from "formik";
-import * as Yup from "yup";
+import { useRouter } from "next/router";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
+
+// mui imports
 import {
   Box,
   Button,
@@ -14,28 +16,76 @@ import {
   Typography,
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { useState } from "react";
+import DateInput from "../../components/common/menu/dateInput";
+import { bodyStreamToNodeStream } from "next/dist/server/body-streams";
+import { Route } from "@mui/icons-material";
 
 const Register = () => {
-  const formik = useFormik({
-    initialValues: {
-      email: "",
-      firstName: "",
-      lastName: "",
-      password: "",
-      policy: false,
-    },
-    validationSchema: Yup.object({
-      email: Yup.string().email("Must be a valid email").max(255).required("Email is required"),
-      firstName: Yup.string().max(255).required("First name is required"),
-      lastName: Yup.string().max(255).required("Last name is required"),
-      password: Yup.string().max(255).required("Password is required"),
-      policy: Yup.boolean().oneOf([true], "This field must be checked"),
-    }),
-    onSubmit: () => {
-      Router.push("/").catch(console.error);
-    },
-  });
+  const router = useRouter();
 
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [city, setCity] = useState("");
+  const [address, setAddress] = useState("");
+  const [phoneNo, setPhoneNo] = useState("");
+  const [qualification, setQualification] = useState("");
+  const [dob, setDob] = useState("");
+
+  async function register(body) {
+    try {
+      const response = await fetch("http://localhost:5000/register", {
+        method: "POST",
+        mode: "cors",
+        cache: "no-cache",
+        credentials: "same-origin",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        redirect: "follow",
+        referrerPolicy: "no-referrer",
+        body: JSON.stringify(body),
+      });
+      console.log("rrrrrrrrrrrrrrrrr", response);
+      if (response.status >= 200 && response.status <= 299) {
+        route.push("/");
+      }
+    } catch (response) {
+      console.log("error", response);
+      // if (response.status >= 400 && response.status <= 499) {
+      //   console.log(`Error!, ${response.data.error}`);
+      // }
+      // if (response.status >= 500 && response.status <= 599) {
+      //   console.log(`Server Error! try again later.`);
+      // }
+    }
+  }
+  function handleRegister(e) {
+    e.preventDefault();
+    const body = {
+      // email: "nabeel1699@gmail.com",
+      // password: "test@123",
+      // cpassword: "test@123",
+      // name: "Nabeel Ahmed",
+      // city: "lahore",
+      // dob: "2-4-2001",
+      // address: "multan",
+      // phoneno: "45666",
+      // qualification: "bsit",
+      name,
+      email,
+      password,
+      city,
+      address,
+      qualification,
+      dob,
+      phoneno: phoneNo,
+      cpassword: confirmPassword,
+    };
+    register(body);
+  }
   return (
     <>
       <Head>
@@ -53,10 +103,10 @@ const Register = () => {
         <Container maxWidth="sm">
           <NextLink href="/" passHref>
             <Button component="a" startIcon={<ArrowBackIcon fontSize="small" />}>
-              Home
+              Back to Login
             </Button>
           </NextLink>
-          <form onSubmit={formik.handleSubmit}>
+          <form>
             <Box sx={{ my: 3 }}>
               <Typography color="textPrimary" variant="h4">
                 Create a new account
@@ -66,54 +116,72 @@ const Register = () => {
               </Typography>
             </Box>
             <TextField
-              error={Boolean(formik.touched.firstName && formik.errors.firstName)}
               fullWidth
-              helperText={formik.touched.firstName && formik.errors.firstName}
-              label="First Name"
+              label="Name"
               margin="normal"
-              name="firstName"
-              onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
-              value={formik.values.firstName}
+              name="name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               variant="outlined"
             />
+            <DateInput label="Date Of Birth" value={dob} onChange={(date) => setDob(date)} />
             <TextField
-              error={Boolean(formik.touched.lastName && formik.errors.lastName)}
               fullWidth
-              helperText={formik.touched.lastName && formik.errors.lastName}
-              label="Last Name"
               margin="normal"
-              name="lastName"
-              onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
-              value={formik.values.lastName}
-              variant="outlined"
+              name="city"
+              label="City"
+              value={city}
+              onChange={(e) => setCity(e.target.value)}
             />
             <TextField
-              error={Boolean(formik.touched.email && formik.errors.email)}
               fullWidth
-              helperText={formik.touched.email && formik.errors.email}
-              label="Email Address"
+              margin="normal"
+              name="address"
+              label="Address"
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
+            />
+
+            <TextField
+              fullWidth
+              margin="normal"
+              name="qualification"
+              label="Qualification "
+              value={qualification}
+              onChange={(e) => setQualification(e.target.value)}
+            />
+            <TextField
+              fullWidth
               margin="normal"
               name="email"
-              onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
+              label="Email"
               type="email"
-              value={formik.values.email}
-              variant="outlined"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <PhoneInput
+              fullWidth
+              country={"pk"}
+              value={phoneNo}
+              onChange={(phone) => setPhoneNo(phone)}
             />
             <TextField
-              error={Boolean(formik.touched.password && formik.errors.password)}
               fullWidth
-              helperText={formik.touched.password && formik.errors.password}
-              label="Password"
               margin="normal"
               name="password"
-              onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
+              label="Password"
               type="password"
-              value={formik.values.password}
-              variant="outlined"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <TextField
+              fullWidth
+              margin="normal"
+              name="confirm_password"
+              label="Confirm Password"
+              type="password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
             />
             <Box
               sx={{
@@ -122,11 +190,7 @@ const Register = () => {
                 ml: -1,
               }}
             >
-              <Checkbox
-                checked={formik.values.policy}
-                name="policy"
-                onChange={formik.handleChange}
-              />
+              <Checkbox name="policy" />
               <Typography color="textSecondary" variant="body2">
                 I have read the{" "}
                 <NextLink href="#" passHref>
@@ -136,24 +200,12 @@ const Register = () => {
                 </NextLink>
               </Typography>
             </Box>
-            {Boolean(formik.touched.policy && formik.errors.policy) && (
-              <FormHelperText error>{formik.errors.policy}</FormHelperText>
-            )}
-            <Box sx={{ py: 2 }}>
-              <Button
-                color="primary"
-                disabled={formik.isSubmitting}
-                fullWidth
-                size="large"
-                type="submit"
-                variant="contained"
-              >
-                Sign Up Now
-              </Button>
-            </Box>
+            <Button fullWidth variant="contained" type="submit" onClick={handleRegister}>
+              Register
+            </Button>
             <Typography color="textSecondary" variant="body2">
               Have an account?{" "}
-              <NextLink href="/login" passHref>
+              <NextLink href="/" passHref>
                 <Link variant="subtitle2" underline="hover">
                   Sign In
                 </Link>

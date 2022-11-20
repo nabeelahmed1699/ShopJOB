@@ -9,6 +9,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import { AuthConsumer, AuthProvider } from "../contexts/auth-context";
 import { createEmotionCache } from "../utils/create-emotion-cache";
 import { registerChartJs } from "../utils/register-chart-js";
+
 import { theme } from "../theme";
 
 registerChartJs();
@@ -37,7 +38,11 @@ const App = (props) => {
                 ) : (
                   <>
                     <NextNProgress color="#C46B39" height={3} />
-                    {getLayout(<Component {...pageProps} />)}
+                    {getLayout(
+                      <>
+                        <Component {...pageProps} />
+                      </>
+                    )}
                   </>
                 )
               }

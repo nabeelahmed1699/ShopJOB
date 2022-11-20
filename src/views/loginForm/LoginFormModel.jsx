@@ -10,6 +10,7 @@ import { TextField, Grid, Button, Stack } from "@mui/material";
 import Link from "@mui/material/Link";
 import NextLink from "next/link";
 import { FormatColorResetSharp } from "@mui/icons-material";
+import axios from "axios";
 
 const style = {
   position: "absolute",
@@ -34,29 +35,23 @@ export default function LoginFormModal({ open, handleClose }) {
 
   async function loginUser() {
     try {
-      const response = await fetch("http://localhost:5000/login", {
-        method: "POST",
-        mode: "cors",
-        cache: "no-cache",
-        credentials: "same-origin",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        redirect: "follow",
-        referrerPolicy: "no-referrer",
-        body: JSON.stringify({
-          // email: "nabeel@gmail.com",
-          email: email,
-          // password: "tanzeela",
-          password: password,
-        }),
+      const response = await axios.post("http://localhost:5000/login", {
+        email: email,
+        password: password,
       });
-
-      const data = await response.json();
-      setIsProcessing(false);
-      window.localStorage.setItem("JWTtoken", data.token);
-      router.push("/jobs");
-    } catch (error) {}
+      const { data } = response;
+      console.log("response", response);
+      console.log("DATA", data);
+      if (response.status >= 200 && response.status <= 299) {
+        setIsProcessing(false);
+        if (data.token) {
+          window.localStorage.setItem("JWTtoken", data.token);
+          router.push("/jobs");
+        }
+      }
+    } catch (error) {
+      console.log("Error", error);
+    }
   }
 
   useEffect(() => {
@@ -66,7 +61,8 @@ export default function LoginFormModal({ open, handleClose }) {
     }
   }, []);
 
-  function handleLogin() {
+  function handleLogin(e) {
+    e.preventDefault();
     setIsProcessing(true);
     loginUser();
   }
@@ -85,57 +81,67 @@ export default function LoginFormModal({ open, handleClose }) {
       >
         {/* <Grow direction="bottom" in={open} mountOnEnter unmountOnExit> */}
         <Box sx={style}>
-          <Typography id="transition-modal-title" variant="h5" component="h2">
-            Login
-          </Typography>
-          <Typography>Please Login to explore the opportunities to get hired.</Typography>
-          <Box sx={{ my: 6 }}>
-            <Grid container spacing={4}>
-              <Grid item xs={12}>
-                <TextField
-                  label="Email: "
-                  variant="standard"
-                  value={email}
-                  onChange={(e) => {
-                    setEmail(e.target.value);
-                  }}
-                  fullWidth
-                />
-              </Grid>
+          <form action="submit">
+            <Typography id="transition-modal-title" variant="h5" component="h2">
+              Login
+            </Typography>
+            <Typography>Please Login to explore the opportunities to get hired.</Typography>
+            <Box sx={{ my: 6 }}>
+              <Grid container spacing={4}>
+                <Grid item xs={12}>
+                  <TextField
+                    disabled={isProcessing}
+                    label="Email: "
+                    variant="standard"
+                    value={email}
+                    onChange={(e) => {
+                      setEmail(e.target.value);
+                    }}
+                    fullWidth
+                  />
+                </Grid>
 
-              <Grid item xs={12} sx={{ display: "flex", flexDirection: "column" }}>
-                <TextField
-                  label="Password: "
-                  type="password"
-                  variant="standard"
-                  value={password}
-                  onChange={(e) => {
-                    setPassword(e.target.value);
-                  }}
-                  fullWidth
-                />
-                <Link
-                  href="#"
-                  underline="hover"
-                  sx={{ alignSelf: "flex-end", fontSize: { xs: "0.9rem", sm: "1rem" } }}
-                >
-                  Forget Password
-                </Link>
-              </Grid>
+                <Grid item xs={12} sx={{ display: "flex", flexDirection: "column" }}>
+                  <TextField
+                    disabled={isProcessing}
+                    label="Password: "
+                    type="password"
+                    variant="standard"
+                    value={password}
+                    onChange={(e) => {
+                      setPassword(e.target.value);
+                    }}
+                    fullWidth
+                  />
+                  <Link
+                    href="#"
+                    underline="hover"
+                    sx={{ alignSelf: "flex-end", fontSize: { xs: "0.9rem", sm: "1rem" } }}
+                  >
+                    Forget Password
+                  </Link>
+                </Grid>
 
-              <Grid item xs={12}>
-                <Button variant="contained" fullWidth onClick={handleLogin} disabled={isProcessing}>
-                  Log In
-                </Button>
-                <Stack sx={{ alignItems: "center" }}>
-                  <Typography variant="body2">Don&apos;t have an account?</Typography>
-                  <NextLink href="/register" passHref>
-                    <Link underline="hover">Register here</Link>
-                  </NextLink>
-                </Stack>
+                <Grid item xs={12}>
+                  <Button
+                    variant="contained"
+                    fullWidth
+                    onClick={handleLogin}
+                    disabled={isProcessing}
+                    type="submit"
+                  >
+                    Log In
+                  </Button>
+                  <Stack sx={{ alignItems: "center" }}>
+                    <Typography variant="body2">Don&apos;t have an account?</Typography>
+                    <NextLink href="/register" passHref>
+                      <Link underline="hover">Register here</Link>
+                    </NextLink>
+                  </Stack>
+                </Grid>
               </Grid>
-            </Grid>
-          </Box>
+            </Box>
+          </form>
         </Box>
         {/* </Grow> */}
       </Modal>

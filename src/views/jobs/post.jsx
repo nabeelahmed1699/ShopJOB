@@ -21,16 +21,21 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import FlagIcon from "@mui/icons-material/Flag";
 import { Box, Button, Grid } from "@mui/material";
 
-export default function PostCard({
-  id,
-  userPic,
-  username,
-  title,
-  ImgSrc,
-  date,
-  liked,
-  postDescription,
-}) {
+export default function PostCard({ post }) {
+  const {
+    img,
+    jobname,
+    salary,
+    shoploc,
+    shopname,
+    timing,
+    user_id,
+    workersReq,
+    liked,
+    description,
+    age,
+    experience,
+  } = post;
   return (
     <Card
       sx={{
@@ -40,11 +45,17 @@ export default function PostCard({
     >
       <CardHeader
         avatar={
-          <Avatar sx={{ bgcolor: "primary" }} aria-label="job" src={userPic} alt={username} />
+          <Avatar sx={{ bgcolor: "primary" }} aria-label="profile pic">
+            T
+          </Avatar>
         }
+        // avatar={
+        //   <Avatar sx={{ bgcolor: "primary" }} aria-label="job" src={userPic} alt={username} />
+        // }
+
         // action={<DotMenu options={[{ label: "Report", icon: <FlagIcon /> }]} />}
-        title={title || "Tanzeela Farooq"}
-        subheader={date || "September 14, 2016"}
+        title={"Tanzeela Farooq"}
+        subheader={"September 14, 2016"}
       />
       <CardContent>
         <Box>
@@ -56,7 +67,7 @@ export default function PostCard({
             </Grid>
             <Grid item xs={6}>
               <Typography variant="body2" sx={{ color: "primary.dark" }}>
-                Plumber
+                {jobname}
               </Typography>
             </Grid>
           </Grid>
@@ -68,7 +79,7 @@ export default function PostCard({
             </Grid>
             <Grid item xs={6}>
               <Typography variant="body2" sx={{ color: "primary.dark" }}>
-                Multan Chungi Chowk
+                {shoploc}
               </Typography>
             </Grid>
           </Grid>
@@ -80,7 +91,7 @@ export default function PostCard({
             </Grid>
             <Grid item xs={6}>
               <Typography variant="body2" sx={{ color: "primary.dark" }}>
-                25k-30k
+                {salary}
               </Typography>
             </Grid>
           </Grid>
@@ -92,7 +103,31 @@ export default function PostCard({
             </Grid>
             <Grid item xs={6}>
               <Typography variant="body2" sx={{ color: "primary.dark" }}>
-                9am - 5pm
+                {timing}
+              </Typography>
+            </Grid>
+          </Grid>
+          <Grid container>
+            <Grid item xs={6}>
+              <Typography variant="body2" sx={{ color: "primary.dark", fontWeight: 700 }}>
+                Age required:
+              </Typography>
+            </Grid>
+            <Grid item xs={6}>
+              <Typography variant="body2" sx={{ color: "primary.dark" }}>
+                {age}
+              </Typography>
+            </Grid>
+          </Grid>
+          <Grid container>
+            <Grid item xs={6}>
+              <Typography variant="body2" sx={{ color: "primary.dark", fontWeight: 700 }}>
+                Workers required:
+              </Typography>
+            </Grid>
+            <Grid item xs={6}>
+              <Typography variant="body2" sx={{ color: "primary.dark" }}>
+                {workersReq}
               </Typography>
             </Grid>
           </Grid>
@@ -102,8 +137,7 @@ export default function PostCard({
             Description:
           </Typography>
           <Typography variant="body2" color="primary.dark">
-            {postDescription ||
-              "This impressive paella is a perfect party dish and a fun meal to cook together with your guests. Add 1 cup of frozen peas along with the mussels, if you like."}
+            {description}
           </Typography>
         </Box>
       </CardContent>
@@ -111,10 +145,9 @@ export default function PostCard({
         component="img"
         height="254"
         image={
-          ImgSrc ||
           "https://images.unsplash.com/photo-1487528278747-ba99ed528ebc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"
         }
-        alt={title || "Paella dish"}
+        alt={"Paella dish"}
       />
 
       <CardActions disableSpacing>

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
+
+// mui imports
 import { Box, Typography, Grid, Button, useMediaQuery } from "@mui/material";
 import { Layout } from "../components/layout";
 import { Logo } from "../components/logo";
@@ -54,6 +56,7 @@ const Page = () => {
       <Head>
         <title>ShopJOB | Home</title>
       </Head>
+
       <Box
         component="main"
         sx={{

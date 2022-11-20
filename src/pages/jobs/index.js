@@ -11,9 +11,10 @@ import { Layout } from "../../components/layout";
 import Post from "../../views/jobs/post";
 import Filters from "../../views/jobs/filters";
 function Page() {
-  const JWTtoken = window.localStorage.getItem("JWTtoken");
   const [jobs, setJobs] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  const JWTtoken = window.localStorage.getItem("JWTtoken");
 
   async function getAllPosts() {
     try {
@@ -22,27 +23,26 @@ function Page() {
         mode: "cors",
         cache: "no-cache",
         credentials: "same-origin",
-        // headers: {
-        //   "Content-Type": "application/json",
-        //   bearertoken: JWTtoken,
-        // },
         headers: new Headers({
-          Authorization: JWTtoken,
+          Authorization: "Bearer " + JWTtoken,
           "Content-Type": "application/json",
         }),
         redirect: "follow",
         referrerPolicy: "no-referrer",
       });
-
-      const data = await response.json();
-      setIsProcessing(false);
-      console.log("DATA", data);
-      router.push("/jobs");
-    } catch (error) {}
+      if (response.status >= 200 && response.status < 300) {
+        const data = await response.json();
+        console.log("DATA", data);
+        setJobs(data.AllPosts);
+        setLoading(false);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
   useEffect(() => {
     getAllPosts();
-  });
+  }, []);
   return (
     <>
       <Head>
@@ -75,16 +75,20 @@ function Page() {
               </Grid>
               <Grid item xs={12}>
                 <Grid container spacing={2}>
-                  {[
-                    1, 2, 3, 4, 5, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23,
-                    24, 25, 26,
-                  ].map((i) => {
-                    return (
-                      <Grid key={i} item xs={12} md={6} lg={4} sx={{ alignItems: "start" }}>
-                        <Post />
-                      </Grid>
-                    );
-                  })}
+                  {loading ? (
+                    <Grid item xs={12}>
+                      <CircularProgress />
+                    </Grid>
+                  ) : (
+                    jobs.map((job) => {
+                      const { _id } = job;
+                      return (
+                        <Grid key={_id} item xs={12} md={6} lg={4} sx={{ alignItems: "start" }}>
+                          <Post post={job} />
+                        </Grid>
+                      );
+                    })
+                  )}
                 </Grid>
               </Grid>
             </Grid>
