@@ -6,7 +6,7 @@ import { AuthContext } from "../contexts/auth-context";
 import { auth, ENABLE_AUTH } from "../lib/auth";
 
 export const AccountPopover = (props) => {
-  const { anchorEl, onClose, open, ...other } = props;
+  const { anchorEl, onClose, open, username, ...other } = props;
   const authContext = useContext(AuthContext);
   const router = useRouter();
 
@@ -37,7 +37,7 @@ export const AccountPopover = (props) => {
       >
         <Typography variant="overline">Account</Typography>
         <Typography color="text.secondary" variant="body2">
-          John Doe
+          {username}
         </Typography>
       </Box>
       <MenuList

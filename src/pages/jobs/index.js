@@ -12,10 +12,12 @@ import Post from "../../views/jobs/post";
 import Filters from "../../views/jobs/filters";
 function Page() {
   const [jobs, setJobs] = useState([]);
+  const [nonChangejobs, setNonChangejobs] = useState([]);
   const [loading, setLoading] = useState(true);
-
+  const [categories, setCategories] = useState([]);
   const JWTtoken = window.localStorage.getItem("JWTtoken");
-
+  const [categoryFilter, setCategoryFilter] = useState("");
+  const [locationFilter, setLocationFilter] = useState("");
   async function getAllPosts() {
     try {
       const response = await fetch("http://localhost:5000/posts", {
@@ -34,7 +36,16 @@ function Page() {
         const data = await response.json();
         console.log("DATA", data);
         setJobs(data.AllPosts);
+        setNonChangejobs(data.AllPosts);
         setLoading(false);
+        const cat = [
+          ...new Set(
+            data.AllPosts.map((job) => {
+              return job.jobname;
+            })
+          ),
+        ];
+        setCategories(cat);
       }
     } catch (error) {
       console.log(error);
@@ -43,6 +54,31 @@ function Page() {
   useEffect(() => {
     getAllPosts();
   }, []);
+
+  function handleCategoryChange(e) {
+    setCategoryFilter(e.target.value);
+    const newPosts = nonChangejobs.filter((job) => {
+      return job.jobname === e.target.value;
+    });
+    setJobs(newPosts);
+  }
+  function handleLocationChange(e) {
+    setLocationFilter(e.target.value);
+
+    const newPosts = nonChangejobs.filter((job) => {
+      const locationName = job.shoploc.toLowerCase();
+      const queryString = e.target.value.toLowerCase();
+      return locationName.includes(queryString);
+    });
+    setJobs(newPosts);
+  }
+
+  function clearFilter() {
+    setLocationFilter("");
+    setCategoryFilter("");
+    setJobs(nonChangejobs);
+  }
+
   return (
     <>
       <Head>
@@ -71,7 +107,14 @@ function Page() {
           ) : (
             <Grid container spacing={2}>
               <Grid item xs={12}>
-                <Filters />
+                <Filters
+                  categories={categories}
+                  categoryFilter={categoryFilter}
+                  handleCategoryChange={handleCategoryChange}
+                  clearFilter={clearFilter}
+                  location={locationFilter}
+                  handleLocationChange={handleLocationChange}
+                />
               </Grid>
               <Grid item xs={12}>
                 <Grid container spacing={2}>

@@ -1,6 +1,10 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
+import jwt_decode from "jwt-decode";
 import PropTypes from "prop-types";
+
 import styled from "@emotion/styled";
+
+// mui imports
 import { AppBar, Avatar, Badge, Box, IconButton, Toolbar, Tooltip, Button } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Bell as BellIcon } from "../icons/bell";
@@ -21,10 +25,19 @@ export const Navbar = (props) => {
   const { onSidebarOpen, ...other } = props;
   const settingsRef = useRef(null);
   const [openAccountPopover, setOpenAccountPopover] = useState(false);
+  const [userName, setUserName] = useState("");
+  const [userProfilePic, setUserProfilePic] = useState("");
 
   const [open, setOpen] = useState(false);
   const handleModalOpen = () => setOpen(true);
   const handleModalClose = () => setOpen(false);
+
+  useEffect(() => {
+    const token = window.localStorage.getItem("JWTtoken");
+    var { _doc } = jwt_decode(token);
+    console.log({ _doc });
+    setUserName(_doc.name);
+  }, []);
 
   return (
     <>
@@ -87,6 +100,7 @@ export const Navbar = (props) => {
       <AccountPopover
         anchorEl={settingsRef.current}
         open={openAccountPopover}
+        username={userName}
         onClose={() => setOpenAccountPopover(false)}
       />
       <JobPostModal open={open} handleClose={handleModalClose} />

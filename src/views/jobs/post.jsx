@@ -30,12 +30,16 @@ export default function PostCard({ post }) {
     shopname,
     timing,
     user_id,
+    username,
     workersReq,
     liked,
     description,
     age,
     experience,
+    userpic,
+    postimg,
   } = post;
+  console.log("POST", post);
   return (
     <Card
       sx={{
@@ -45,16 +49,21 @@ export default function PostCard({ post }) {
     >
       <CardHeader
         avatar={
-          <Avatar sx={{ bgcolor: "primary" }} aria-label="profile pic">
-            T
-          </Avatar>
+          userpic ? (
+            <Avatar
+              sx={{ bgcolor: "primary" }}
+              aria-label="user-Pic"
+              src={userpic}
+              alt={username}
+            />
+          ) : (
+            <Avatar sx={{ bgcolor: "primary" }} aria-label="profile pic">
+              username[0]
+            </Avatar>
+          )
         }
-        // avatar={
-        //   <Avatar sx={{ bgcolor: "primary" }} aria-label="job" src={userPic} alt={username} />
-        // }
-
         // action={<DotMenu options={[{ label: "Report", icon: <FlagIcon /> }]} />}
-        title={"Tanzeela Farooq"}
+        title={username}
         subheader={"September 14, 2016"}
       />
       <CardContent>
@@ -145,9 +154,11 @@ export default function PostCard({ post }) {
         component="img"
         height="254"
         image={
-          "https://images.unsplash.com/photo-1487528278747-ba99ed528ebc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"
+          postimg
+            ? postimg
+            : "https://images.unsplash.com/photo-1487528278747-ba99ed528ebc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"
         }
-        alt={"Paella dish"}
+        alt={shopname}
       />
 
       <CardActions disableSpacing>

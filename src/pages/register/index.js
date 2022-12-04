@@ -48,18 +48,17 @@ const Register = () => {
         referrerPolicy: "no-referrer",
         body: JSON.stringify(body),
       });
-      console.log("rrrrrrrrrrrrrrrrr", response);
+
       if (response.status >= 200 && response.status <= 299) {
         route.push("/");
       }
     } catch (response) {
-      console.log("error", response);
-      // if (response.status >= 400 && response.status <= 499) {
-      //   console.log(`Error!, ${response.data.error}`);
-      // }
-      // if (response.status >= 500 && response.status <= 599) {
-      //   console.log(`Server Error! try again later.`);
-      // }
+      if (response.status >= 400 && response.status <= 499) {
+        console.log(`Error!, ${response.data.error}`);
+      }
+      if (response.status >= 500 && response.status <= 599) {
+        console.log(`Server Error! try again later.`);
+      }
     }
   }
   function handleRegister(e) {

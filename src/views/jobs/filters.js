@@ -15,18 +15,28 @@ import {
 // Icons
 import CloseIcon from "@mui/icons-material/Close";
 
-const Filters = () => {
-  const [age, setAge] = useState("");
-  const handleChange = (event) => {
-    setAge(event.target.value);
-  };
+const Filters = ({
+  categories,
+  categoryFilter,
+  handleCategoryChange,
+  clearFilter,
+  location,
+  handleLocationChange,
+}) => {
   return (
     <Card>
       <CardHeader title="Filter Jobs" sx={{ pb: 0 }} />
       <CardContent>
         <Grid container spacing={2}>
           <Grid item xs={12} md={5.7}>
-            <TextField id="outlined-basic" label="Search Location" variant="outlined" fullWidth />
+            <TextField
+              id="outlined-basic"
+              label="Search Location"
+              variant="outlined"
+              fullWidth
+              value={location}
+              onChange={handleLocationChange}
+            />
           </Grid>
 
           <Grid item xs={12} md={5.7}>
@@ -35,21 +45,22 @@ const Filters = () => {
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={age}
+                value={categoryFilter}
                 label="Categories"
-                onChange={handleChange}
+                onChange={handleCategoryChange}
               >
-                <MenuItem value={10}>Plumber</MenuItem>
-                <MenuItem value={20}>Electrition</MenuItem>
-                <MenuItem value={30}>Milk man</MenuItem>
-                <MenuItem value={30}>General store helper</MenuItem>
-                <MenuItem value={30}>Bike Mechanic</MenuItem>
-                <MenuItem value={30}>Car Mechanic</MenuItem>
+                {categories.map((cat) => {
+                  return (
+                    <MenuItem key={cat} value={cat}>
+                      {cat}
+                    </MenuItem>
+                  );
+                })}
               </Select>
             </FormControl>
           </Grid>
           <Grid item xs={12} md={0.6} sx={{ alignSelf: "center", justifyContent: "center" }}>
-            <IconButton sx={{ ml: { xs: 0, md: "auto" } }}>
+            <IconButton sx={{ ml: { xs: 0, md: "auto" } }} onClick={clearFilter}>
               <CloseIcon />
             </IconButton>
           </Grid>
